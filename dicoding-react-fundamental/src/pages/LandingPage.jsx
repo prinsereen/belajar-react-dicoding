@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Header } from "./components/Header";
-import { NoteForm } from "./components/NoteForm";
-import { ActiveNotes } from "./components/ActiveNotes";
-import { getInitialData } from "../utils";
+import { Header } from "../components/Header";
+import { NoteForm } from "../components/NoteForm"
+import { ActiveNotes } from "../components/ActiveNotes"
+import { getAllNotes } from "../utils/local-data"
 
-const App = () => {
-  const [notes, setNotes] = useState(getInitialData());
+export const LandingPage = () => {
+  const [notes, setNotes] = useState(getAllNotes());
 
   const handleDeleteNote = (index) => {
     const updatedNotes = [...notes];
@@ -27,4 +27,3 @@ const App = () => {
   );
 };
 
-export default App;
