@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
 export const ActiveNotes = ({ notes, onDeleteNote }) => {
-  const handleDelete = (index) => {
-    onDeleteNote(index);
+  const handleDelete = (id) => {
+    onDeleteNote(id);
   };
 
   return (
@@ -15,7 +15,7 @@ export const ActiveNotes = ({ notes, onDeleteNote }) => {
             <Link to={`/detail/${note.id}`}><h1 className="text-2xl">{note.title}</h1></Link>
             <h3 className="">{showFormattedDate(note.createdAt)}</h3>
             <h2 className="my-2 text-xl">{note.body}</h2>
-            <button className="border hover:bg-red-300 mt-auto" onClick={() => handleDelete(index)}>Delete</button>
+            <button className="border hover:bg-red-300 mt-auto" onClick={() => handleDelete(note.id)}>Delete</button>
           </div>
         ))
       ) : (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
 
-export const NoteForm = ({ notes, onAddNote }) => {
+export const NoteForm = ({ onAddNote }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [remainingChars, setRemainingChars] = useState(50);
@@ -14,19 +14,13 @@ export const NoteForm = ({ notes, onAddNote }) => {
   };
 
   const handleSubmit = () => {
-    const maxId = notes.length;
-    const newId = maxId + 1;
-
 
     const newNote = {
-      id: `notes-${newId}`,
       title: title,
       body: body,
-      archived: false,
-      createdAt: new Date().toISOString() 
     };
 
-    onAddNote(newNote);
+    onAddNote(newNote); 
 
     setTitle("");
     setBody("");
@@ -60,6 +54,5 @@ export const NoteForm = ({ notes, onAddNote }) => {
 };
 
 NoteForm.propTypes = {
-  notes: PropTypes.array.isRequired,
   onAddNote: PropTypes.func.isRequired
-}
+};

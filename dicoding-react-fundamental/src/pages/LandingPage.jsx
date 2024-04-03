@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { Header } from "../components/Header";
-import { NoteForm } from "../components/NoteForm"
-import { ActiveNotes } from "../components/ActiveNotes"
-import { getAllNotes } from "../utils/local-data"
+import { NoteForm } from "../components/NoteForm";
+import { ActiveNotes } from "../components/ActiveNotes";
+import { getAllNotes, addNote, deleteNote } from "../utils/local-data";
 
 export const LandingPage = () => {
   const [notes, setNotes] = useState(getAllNotes());
 
-  const handleDeleteNote = (index) => {
-    const updatedNotes = [...notes];
-    updatedNotes.splice(index, 1);
-    setNotes(updatedNotes);
+  const handleDeleteNote = (id) => {
+    deleteNote(id); 
+    setNotes(getAllNotes()); 
   };
 
   const handleAddNote = (newNote) => {
-    setNotes([...notes, newNote]);
+    addNote(newNote); 
+    setNotes(getAllNotes()); 
   };
 
   return (
@@ -26,4 +26,3 @@ export const LandingPage = () => {
     </>
   );
 };
-
