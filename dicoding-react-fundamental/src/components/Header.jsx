@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../context/ThemeCotext';
-import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { theme, toggleTheme } = React.useContext(ThemeContext);
 
   const handleLogout = () => {
-    navigate('/')
+    localStorage.removeItem('accessToken'); 
+    localStorage.removeItem('theme')
+    navigate('/');
   };
 
   return (
