@@ -1,28 +1,33 @@
-import { useState } from "react";
-import { Header } from "../components/Header";
 import { NoteForm } from "../components/NoteForm";
-import { ActiveNotes } from "../components/ActiveNotes";
-import { getAllNotes, addNote, deleteNote } from "../utils/local-data";
+import { Header } from "../components/Header";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const LandingPage = () => {
-  const [notes, setNotes] = useState(getAllNotes());
+  const accessToken = localStorage.getItem('accessToken')
+  console.log(accessToken)
+  const navigate = useNavigate()
 
-  const handleDeleteNote = (id) => {
-    deleteNote(id); 
-    setNotes(getAllNotes()); 
-  };
-
-  const handleAddNote = (newNote) => {
-    addNote(newNote); 
-    setNotes(getAllNotes()); 
+  const handleAddNote = async(newNote) => {
+    try {
+      await axios.post('https://notes-api.dicoding.dev/v1/notes', newNote, {
+        headers:{
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      navigate('/active')
+    } 
+      catch (error) {
+      window.alert(error)
+    }
   };
 
   return (
     <>
-      <Header />
-      <NoteForm notes={notes} onAddNote={handleAddNote} />
-      <h1 className="text-4xl mx-40 my-4">Catatan Aktif</h1>
-      <ActiveNotes notes={notes} onDeleteNote={handleDeleteNote} />
+    <Header/>
+    <div className="dark:bg-gray-800">
+      <NoteForm  onAddNote={handleAddNote} />
+    </div>
     </>
   );
 };
